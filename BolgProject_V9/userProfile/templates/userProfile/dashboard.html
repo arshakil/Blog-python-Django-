@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Dashboard Page{% endblock title %}
+
+{% block content %}
+<div class="container">
+        <h1 class="text-center bg-info py-2">Dashboard</h1>
+        <div class="row">
+                <div class="col-8 offset-2">
+
+                        {% if user.profile.image %}
+                        <div class="circle-img">
+                                <img src="{{user.profile.image.url}}" class="rounded-circle" alt="Uploaded Image">
+                        </div>
+                        {% else %}
+                        {% if user.profile.gender == 'male'  %}
+                        <div class="circle-img center">
+                                <img src="{% static 'img/male.jpg' %}" class="rounded-circle" alt="Uploaded Image">
+                        </div>
+
+                        {% elif user.profile.gender == 'female' %}
+                        <div class="circle-img center">
+                                <img src="{% static 'img/female.jpg' %}" class="rounded-circle" alt="Uploaded Image">
+                        </div>
+                        {% else %}
+                        <div class="circle-img center">
+                                <img src="{% static 'img/common.png' %}" class="rounded-circle" alt="Uploaded Image">
+                        </div>
+                        {% endif %}
+
+
+
+                        {% endif %}
+                        <hr class="my-3">
+                        <div class="jumbotron">
+                                <strong>Username:</strong><a href=""> {{user.username}}</a><br>
+                                <strong>First Name:</strong><a href=""> {{user.first_name}}</a><br>
+                                <strong>Last Name:</strong><a href=""> {{user.last_name}}</a><br>
+                                <strong>Gender:</strong><a href=""> {{user.profile.gender|capfirst}}</a><br>
+
+                        </div>
+
+                        <hr>
+
+                        <!-- add btn -->
+                        <div>
+                                <a href="{% url 'create_post' %}" class="btn btn-outline-success my-3">
+                                        <i class="fas fa-plus-square">
+                                                <span class="mr-2">
+                                                        Add Post
+                                                </span>
+                                        </i>
+                                </a>
+                        </div>
+
+                        <!-- btn end -->
+
+
+
+                        <div>
+                                <h4 class="text-center py-2 px-2 bg-warning mb-5"><span>&#8220;</span> {{user.username|capfirst}} <span>&#8221; </span> Your all posts shows below, please have e look</h4>
+                                <!-- begin -->
+                                {% if posts %}
+                                {% for post in posts %}
+                                <div class="col-md-12">
+                                        <div class="blog-entry ftco-animate d-md-flex">
+                                                {% if post.image %}
+                                                <a href="{% url 'detail_page' post.id %}" class="img img-2"
+                                                        style="background-image: url({{ post.image.url }})"></a>
+                                                {% else %}
+                                                <a href="#" class="img img-2"
+                                                        style="background-image: url(static/images/image_1.jpg);"></a>
+                                                {% endif %}
+
+                                                <div class="text text-2 pl-md-4">
+                                                        <h3 class="mb-2"><a
+                                                                        href="{% url 'detail_page' post.id %}">{{post.title|truncatechars:58}}</a>
+                                                        </h3>
+                                                        <div class="meta-wrap">
+                                                                <p class="meta">
+                                                                        <span><i
+                                                                                        class="icon-calendar mr-2"></i>{{post.post_uploaded|date:"F d, Y"}}</span>
+
+                                                                        <span><a href="{% url 'categories_page' post.category.id %}"><i
+                                                                                                class="icon-folder-o mr-2"></i>{{post.category.category_name}}</a></span>
+
+
+                                                                        {% if post.comments.count >= 1 %}
+                                                                        <span><i class="icon-comment2 mr-2"></i>
+                                                                                {{ post.comments.count }}
+                                                                                Comment{{ post.comments.count|pluralize }}
+                                                                        </span>
+                                                                        {% else %}
+                                                                        <span><i class="icon-comment2 mr-2"></i>
+                                                                                {{post.comments.count}} Comment
+                                                                        </span>
+                                                                        {% endif %}
+
+
+
+                                                                </p>
+                                                        </div>
+                                                        <p class="mb-4">
+                                                                {{post.description|linebreaks|truncatechars:135}}</p>
+                                                        <p><a href="{% url 'detail_page' post.id %}"
+                                                                        class="btn-custom">Read More <span
+                                                                                class="ion-ios-arrow-forward"></span></a>
+
+                                                                {% if post.author.username == request.user.username %}
+                                                                <a href="{% url 'update_post' post.id%}"
+                                                                        class="btn btn-outline-success btn-sm">Edit</a>
+                                                                <a href="{% url 'delete_post' post.id%}"
+                                                                        class="btn btn-outline-danger btn-sm">delete</a>
+                                                                {% endif %}
+
+
+
+
+
+                                                        </p>
+                                                </div>
+                                        </div>
+                                </div>
+                                {% endfor %}
+
+                                {% else %}
+                                <h3 class="text-danger text-center py-2 px-2 bg-info text-white"> 
+                                        Sorry, there are no post available at this time. Please add some post! </h3>
+                                {% endif %}
+
+                        </div>
+
+                        <!-- end -->
+                        <!-- pagination begin -->
+                        {% if posts %}
+
+                        {% include "includes/pagination.html" %}
+                        {% endif %}
+
+                        <!-- pagination end -->
+
+
+                </div>
+        </div>
+</div>
+</div>
+{% endblock content %}

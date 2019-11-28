@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Contact Page{% endblock title %}
+{% load static %}
+{% block content %}
+  
+		<div id="colorlib-main">
+			<section class="ftco-section contact-section px-md-4">
+	      <div class="container">
+	        <div class="row d-flex mb-5 contact-info">
+	          <div class="col-md-12 mb-4">
+	            <h2 class="h3">Contact Information</h2>
+	          </div>
+	          <div class="w-100"></div>
+	          <div class="col-lg-6 col-xl-3 d-flex mb-4">
+	          	<div class="info bg-light p-4">
+		            <p><span>Address:</span> Block-G1, Road-02, House-08(Near National Housing Office), Mirpur-2, Dhaka-1216</p>
+		          </div>
+	          </div>
+	          <div class="col-lg-6 col-xl-3 d-flex mb-4">
+	          	<div class="info bg-light p-4">
+		            <p><span>Phone:</span> <a href="#">+8801613363410</a></p>
+		          </div>
+	          </div>
+	          <div class="col-lg-6 col-xl-3 d-flex mb-4">
+	          	<div class="info bg-light p-4">
+		            <p><span>Email:</span> <a href="mailto:info@yoursite.com">azizur.rahman363410@gmail.com</a></p>
+		          </div>
+	          </div>
+	          <div class="col-lg-6 col-xl-3 d-flex mb-4">
+	          	<div class="info bg-light p-4">
+		            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+		          </div>
+	          </div>
+	        </div>
+	        <div class="row block-9">
+	          <div class="col-lg-6 d-flex">
+	            <form action="{% url 'contact' %}" class="bg-light p-5 contact-form" method="POST">
+					{% csrf_token %}
+	              <div class="form-group">
+	                <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+	              </div>
+	              <div class="form-group">
+	                <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+	              </div>
+	              <div class="form-group">
+	                <input type="text" class="form-control" placeholder="Subject" name="subject" required>
+	              </div>
+	              <div class="form-group">
+	                <textarea id="" cols="30" rows="7" class="form-control" placeholder="Message" name="message" required></textarea>
+	              </div>
+	              <div class="form-group">
+	                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+	              </div>
+	            </form>
+	          
+	          </div>
+
+	          <div class="col-lg-6 d-flex">
+	          	<!-- <div id="map" class="bg-light">
+
+
+				  </div> -->
+<!-- extra -->
+				  <div class="mapouter"><div class="gmap_canvas"><iframe width="600" height="577" id="gmap_canvas" src="https://maps.google.com/maps?q=mirpur%20dhaka%2C%20Bangladesh&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com">whatismyip-address.com</a></div><style>.mapouter{position:relative;text-align:right;height:577px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:577px;width:600px;}</style></div>
+
+<!--  -->
+
+			  </div>
+			  
+
+	        </div>
+	      </div>
+	    </section>
+		</div><!-- END COLORLIB-MAIN -->
+	</div><!-- END COLORLIB-PAGE -->
+
+
+
+
+	{% endblock content %}

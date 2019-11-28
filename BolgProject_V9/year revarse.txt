@@ -1,0 +1,14 @@
+   {% regroup all_posts by posted.year as year_list %}
+
+    <ul>
+    {% for year in year_list %}
+        <li>{{ year.grouper }}
+            {% regroup year.list by posted.month as month_list %}
+            <ul>
+            {% for month in month_list %}
+                <li><a href="{% url 'blog:post_archive_month' year.grouper month.grouper %}">{{ month.list.0.posted|date:'b' }} ({{ month.list|length }})</a></li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
